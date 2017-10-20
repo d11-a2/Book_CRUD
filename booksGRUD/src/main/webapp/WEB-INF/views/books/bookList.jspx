@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0" xmlns:tiles="http://tiles.apache.org/tags-tiles">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_book_list" var="labelBookList"/>
+    <spring:message code="label_book_id" var="labelBookId"/>
+    <spring:message code="label_book_title" var="labelBookTitle"/>
+    <spring:message code="label_book_author" var="labelBookAuthor"/>
+    <spring:message code="label_book_year" var="labelBookYear"/>
+    <spring:message code="label_book_description" var="labelBookDescription"/>
+    <spring:message code="label_book_read_already" var="labelBookReadAlready"/>
+    <spring:message code="label_book_isbn" var="labelBookIsbn"/>
+    <spring:message code="label_book_cancel_search" var="labelBookCancelSearch"/>
+    <spring:message code="label_book_add" var="labelAddBook"/>
+
+
+    <spring:url value="/books/read" var="readBookUrl"/>
+    <spring:url value="/books/remove" var="removeBookUrl"/>
+    <spring:url value="/books/show" var="showBookUrl"/>
+    <spring:url value="/books/edit" var="editBookUrl"/>
+    <spring:url value="/books?form" var="addBookUrl"/>
+    <spring:url value="/books" var="booksUrl"/>
+
+    <div class="content">
+
+    <c:if test="${not empty message}">${message}</c:if>
+
+        <form:form modelAttribute="searchCriteria" method="POST" action="${booksUrl}">
+
+            <c:if test="${not empty books}">
+                <div class="topLine1">
+                    <table>
+                        <tr class="topLine1">
+                            <td style="text-align:right;">
+                                Search by:
+                            </td>
+
+                            <td class="select-style">
+                                <form:select path="type" items="${searchCriteria.criteriaArray}"/>
+                            </td>
+
+                            <td style="text-align:right;">
+                                Enter attribute:
+                            </td>
+                            <td><form:input path="attribute"/></td>
+
+                            <td class="text-input">
+                                <input type="submit" value="Find"/>
+                            </td>
+
+                            <td>
+                                <a class="interfaceRefs" href="${booksUrl}">${labelBookCancelSearch}</a>
+                            </td>
+
+                            <td>
+                                <a class="interfaceRefs" href="${addBookUrl}">${labelAddBook}</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div><p class="topLine1"/></div>
+
+                <div>
+                    <table>
+                        <thead>
+                        <tr class="tableCaption">
+                            <td>${labelBookId}</td>
+                            <td>${labelBookTitle}</td>
+                            <td>${labelBookAuthor}</td>
+                            <td>${labelBookYear}</td>
+                            <td>${labelBookDescription}</td>
+                            <td>${labelBookReadAlready}</td>
+                            <td>${labelBookIsbn}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <c:forEach items="${books}" var="book">
+                            <tr class="tableline">
+
+                                <td>${book.id}</td>
+                                <td>${book.title}</td>
+                                <td>${book.author}</td>
+                                <td>${book.printYear}</td>
+                                <td>${book.description}</td>
+                                <td>${book.readAlready}</td>
+                                <td>${book.isbn}</td>
+                                <td><a class="interfaceRefs" href="${showBookUrl}?id=${book.id}">
+                                    Show</a></td>
+                                <td><a class="interfaceRefs" href="${readBookUrl}?id=${book.id}">
+                                    Read</a></td>
+                                <td><a class="interfaceRefs" href="${editBookUrl}?id=${book.id}">
+                                    Edit</a></td>
+                                <td><a class="interfaceRefs" href="${removeBookUrl}?id=${book.id}">
+                                    Remove</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div><p class="bottomLine1"/></div>
+                <div class="bottomLine2">
+
+                    <div class="pagePrevious">
+                        <c:if test="${page gt 1}">
+                            <a class="interfaceRefs" href="${booksUrl}?page=${page - 1}">previous</a>
+                        </c:if>
+                    </div>
+                    <div class="pageNumber">
+                        ${page} / ${pageCount}
+                    </div>
+
+                    <div class="pageNext">
+                        <c:if test="${page lt pageCount}">
+                            <a class="interfaceRefs" href="${booksUrl}?page=${page + 1}">next</a>
+                        </c:if>
+                    </div>
+
+                </div>
+            </c:if>
+
+        </form:form>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="menu"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:form>
+        <tr>
+            <td>Criterion</td>
+            <td><form:select path="department">
+                <form:option value="technical" label="Technical"/>
+                <form:option value="non_technical" label="Non Technical"/>
+                <form:option value="r&d" label="R & D"/>
+            </form:select></td>
+        </tr>
+    </form:form>
+
+    <h3>${menuHeaderText}</h3>
+</div>
+

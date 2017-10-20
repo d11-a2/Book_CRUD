@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_book_info" var="labelBookInfo"/>
+    <spring:message code="label_book_id" var="labelBookId"/>
+    <spring:message code="label_book_title" var="labelBookTitle"/>
+    <spring:message code="label_book_author" var="labelBookAuthor"/>
+    <spring:message code="label_book_year" var="labelBookYear"/>
+    <spring:message code="label_book_description" var="labelBookDescription"/>
+    <spring:message code="label_book_read_already" var="labelBookReadAlready"/>
+    <spring:message code="label_book_isbn" var="labelBookIsbn"/>
+    <spring:message code="label_book_update" var="labelBookUpdate"/>
+    <spring:message code="label_book_cancel" var="labelBookCancel"/>
+
+    <spring:url value="/books/edit" var="editBookUrl"/>
+    <spring:url value="/books" var="listBookUrl"/>
+
+
+
+
+    <div class="content">
+        <h1>${labelBookInfo}</h1>
+
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+
+        <div>
+
+            <div><p class="topLine1"/></div>
+
+            <table style="text-align: left;">
+
+                <tr class="tableline">
+                    <td>${labelBookId}</td>
+                    <td>${book.id}</td>
+                </tr>
+                <tr class="tableline">
+                    <td>${labelBookTitle}</td>
+                    <td>${book.title}</td>
+                </tr>
+                <tr class="tableline">
+                    <td>${labelBookAuthor}</td>
+                    <td>${book.author}</td>
+                </tr>
+                <tr class="tableline">
+                    <td>${labelBookYear}</td>
+                    <td>${book.printYear}</td>
+                </tr>
+                <tr class="tableline">
+                    <td>${labelBookDescription}</td>
+                    <td>${book.description}</td>
+                </tr>
+                <tr class="tableline">
+                    <td>${labelBookReadAlready}</td>
+                    <td>${book.readAlready}</td>
+                </tr>
+                <tr class="tableline">
+                    <td>${labelBookIsbn}</td>
+                    <td>${book.isbn}</td>
+                </tr>
+
+            </table>
+            <div><p class="bottomLine1"/></div>
+            <div class="bottomLine2">
+                <a class="interfaceRefs" href="${editBookUrl}?id=${book.id}">${labelBookUpdate}</a>
+                <a class="interfaceRefs" href="${listBookUrl}">${labelBookCancel}</a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
